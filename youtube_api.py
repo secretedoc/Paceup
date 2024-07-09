@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 import os
+import re
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,10 +34,17 @@ def get_playlist_videos(playlist_id):
             )
             video_response = video_request.execute()
             duration = video_response['items'][0]['contentDetails']['duration']
+
             # Convert duration to seconds
-            hours = int(duration[2:].split('H')[0]) if 'H' in duration else 0
-            minutes = int(duration.split('H')[-1].split('M')[0]) if 'M' in duration else 0
-            seconds = int(duration.split('M')[-1].split('S')[0]) if 'S' in duration else 0
+            hours = minutes = seconds = 0
+            match = re.match(r'PT((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+)S)?', duration)
+            if match:
+                if match.group('hours'):
+                    hours = int(match.group('hours'))
+                if match.group('minutes'):
+                    minutes = int(match.group('minutes'))
+                if match.group('seconds'):
+                    seconds = int(match.group('seconds'))
             total_seconds = hours * 3600 + minutes * 60 + seconds
             videos.append((title, total_seconds))
 
