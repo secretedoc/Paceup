@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Playlist Tracker</h1>
+        <input type="text" id="playlistUrl" placeholder="Enter YouTube playlist URL" />
+        <input type="number" id="dailyGoal" placeholder="Enter daily goal (hours)" />
+        <button onclick="fetchPlaylist()">Fetch Playlist</button>
+        
+        <div id="results">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
